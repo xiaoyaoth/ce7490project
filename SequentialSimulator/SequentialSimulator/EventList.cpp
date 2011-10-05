@@ -2,19 +2,18 @@
 #include <iostream>
 
 Event * EventList::head = NULL; /*initialize the static member "head" */
-Event * EventList::ptr = NULL; /*initialize the static member "ptr" */
+Event * EventList::currPtr = NULL; /*initialize the static member "ptr" */
 
 EventList::EventList(Event *e){
 	head = e;
-	ptr = e;
+	currPtr = e;
 }
 
 void EventList::insert(Event * e){
-	Event * temp = head;
+	Event * temp = currPtr;
 	if(temp == NULL){
-		std::cout<<"head is null"<<std::endl;
 		head = e;
-		ptr = e;
+		currPtr = e;
 		return;
 	}else if(e->getTime()<head->getTime()){
 		e->setNextEventPtr(head);
@@ -35,9 +34,9 @@ void EventList::insert(Event * e){
 }
 
 Event * EventList::getNextEvent(){
-	if(ptr->getNextEventPtr() != NULL){
-		ptr = ptr->getNextEventPtr();
-		return ptr;
+	if(currPtr->getNextEventPtr() != NULL){
+		currPtr = currPtr->getNextEventPtr();
+		return currPtr;
 	}else
 		return NULL;
 }

@@ -7,7 +7,7 @@ class EventList
 {
 private:
 	static Event * head;
-	static Event * ptr;
+	static Event * currPtr;
 public:
 	EventList(Event * e);
 	EventList();

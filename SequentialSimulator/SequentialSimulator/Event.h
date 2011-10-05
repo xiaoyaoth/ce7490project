@@ -5,10 +5,6 @@
 #define NULL 0
 #endif
 
-#ifndef RADIUS
-#define RADIUS 1
-#endif
-
 #ifndef DIAMETER
 #define DIAMETER 2
 #endif
@@ -38,7 +34,7 @@ protected:
 	/*statistics, declared as static*/
 	static int block; // count for call-block
 	static int drop; // count of call-drop
-	static int handover; //count of handover
+	static int success; //count of handover
 	static int total; //total event amount
 
 public:
@@ -53,5 +49,7 @@ public:
 
 	virtual void handleEvent(Base blist[]);
 	virtual string getOutput();
+
+	static string getResult();
 };
 #endif

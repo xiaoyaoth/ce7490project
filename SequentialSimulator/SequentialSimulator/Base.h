@@ -13,5 +13,6 @@ public:
 	void setBaseID(int bid);
 	void incOccupiedChannel();
 	void decOccupiedChannel();
+	void print();
 };
 #endif

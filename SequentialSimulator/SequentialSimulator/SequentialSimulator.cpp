@@ -19,9 +19,6 @@ void parseData(string rec);
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	/*CallInitiationEvent ie = CallInitiationEvent(0,10,15,10,20,0);
-	CallHandoverEvent he = CallHandoverEvent(1, 11, 15, 10);
-	CallTerminationEvent te = CallTerminationEvent(2,16);*/
 	const int BASE_AMOUNT = 20;
 	Base blist[BASE_AMOUNT];
 	for(int i = 0; i<BASE_AMOUNT; i++){
@@ -37,21 +34,25 @@ int _tmain(int argc, _TCHAR* argv[])
 	string rec; //one record
 	getline(fin, rec);
 	parseData(rec);
+
+	fout<<"EventID\tType\tarvlNo\ttime\tbaseID\tspeed\tdura\tposition"<<std::endl;
 	int i = 0;
-	Event * ptr = EventList::getHead();
-	while(ptr!=NULL && ++i < 100){
-		ptr->handleEvent(blist);
-		//ptr->print();
-		cout<<ptr->getOutput();
+	Event * cur = EventList::getHead();
+	while(cur!=NULL){
+		cur->handleEvent(blist);
+		fout<<cur->getOutput();
 		if(!fin.eof()){
 			getline(fin, rec);
 			parseData(rec);
 		}
-		ptr = EventList::getNextEvent();
+		cur = EventList::getNextEvent(); /**/
 	}
-	//EventList::print();
+
+	cout<<Event::getResult();
+	fout<<Event::getResult();
 	fin.close();
 	fout.close();
+
 	return 0;
 }
 

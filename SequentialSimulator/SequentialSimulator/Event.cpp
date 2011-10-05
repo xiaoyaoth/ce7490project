@@ -2,7 +2,7 @@
 #include "EventList.h"
 
 int Event::drop = 0;
-int Event::handover = 0;
+int Event::success = 0;
 int Event::total = 0;
 int Event::block = 0;
 
@@ -48,6 +48,13 @@ void Event::handleEvent(Base blist[]){
 string Event::getOutput(){
 	stringstream ss;
 	ss<<"vitual"<<"\t"<<time<<"\t"<<baseID<<std::endl;
+	return ss.str();
+}
+
+string Event::getResult(){
+	stringstream ss;
+	ss<<"success\tdrop\t\block\t"<<endl;
+	ss<<Event::success<<"\t"<<Event::drop<<"\t"<<Event::block<<endl;
 	return ss.str();
 }
 

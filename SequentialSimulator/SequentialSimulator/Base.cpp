@@ -1,4 +1,5 @@
 #include "Base.h"
+#include <iostream>
 
 Base::Base(){
 	baseID = 0;
@@ -28,4 +29,8 @@ void Base::incOccupiedChannel(){
 
 void Base::decOccupiedChannel(){
 	occupiedChannel--;
+}
+
+void Base::print(){
+	std::cout<<"baseID:"<<baseID<<" oc:"<<occupiedChannel<<std::endl;
 }
