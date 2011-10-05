@@ -11,7 +11,7 @@ void CallHandoverEvent::handleEvent(Base blist[]){
 	Base *base = &blist[baseID];
 	Base *prevBase = &blist[baseID-1];
 	prevBase->decOccupiedChannel();
-	base->print();
+	//cout<<base->toString();
 	int oc = base->getOccupiedChannel();
 	if(oc<10){//not all the channel occupied
 		base->incOccupiedChannel();
@@ -30,7 +30,7 @@ void CallHandoverEvent::handleEvent(Base blist[]){
 
 string CallHandoverEvent::getOutput(){
 	stringstream ss;
-	ss<<this->getEventID()<<"\t\t"<<"Hando\t\t\t\t"<<time
-		<<"\t\t"<<baseID<<"\t\t"<<speed<<"\t\t"<<duration<<std::endl;
+	ss<<this->getEventID()<<"\t"<<"Hando\t\t"<<time
+		<<"\t"<<baseID<<"\t"<<speed<<"\t"<<duration<<std::endl;
 	return ss.str();
 }

@@ -53,7 +53,7 @@ string Event::getOutput(){
 
 string Event::getResult(){
 	stringstream ss;
-	ss<<"success\tdrop\t\block\t"<<endl;
+	ss<<"success\tdrop\tblock\t"<<endl;
 	ss<<Event::success<<"\t"<<Event::drop<<"\t"<<Event::block<<endl;
 	return ss.str();
 }
