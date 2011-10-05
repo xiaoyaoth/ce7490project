@@ -1,5 +1,6 @@
 // SequentialSimulator.cpp : Defines the entry point for the console application.
 //
+#include "Base.h"
 #include "Event.h"
 #include "EventList.h"
 #include "CallHandoverEvent.h"
@@ -19,10 +20,10 @@ void parseData(string rec);
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	const int BASE_AMOUNT = 20;
-	Base blist[BASE_AMOUNT];
-	for(int i = 0; i<BASE_AMOUNT; i++){
+	Base * blist = Base::getBlist();
+	for(int i=0; i<BASENO; i++){
 		blist[i].setBaseID(i);
+		//cout<<blist[i].toString();
 	}
 
 	ifstream fin;
@@ -35,7 +36,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	getline(fin, rec);
 	parseData(rec);
 
-	fout<<"EventID\tType\tarvlNo\ttime\tbaseID\tspeed\tdura\tposition"<<std::endl;
+	//fout<<"EventID\tType\tarvlNo\ttime\tbaseID\tspeed\tdura\tposition"<<std::endl;
 	int i = 0;
 	Event * cur = EventList::getHead();
 	while(cur!=NULL){

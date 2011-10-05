@@ -1,6 +1,8 @@
 #include "Base.h"
 #include <iostream>
 
+Base * Base::blist = new Base[BASENO];
+
 Base::Base(){
 	baseID = 0;
 	occupiedChannel = 0;
@@ -31,6 +33,12 @@ void Base::decOccupiedChannel(){
 	occupiedChannel--;
 }
 
-void Base::print(){
-	std::cout<<"baseID:"<<baseID<<" oc:"<<occupiedChannel<<std::endl;
+string Base::toString(){
+	stringstream ss;
+	ss<<"baseID:"<<baseID<<" oc:"<<occupiedChannel<<std::endl;
+	return ss.str();
+}
+
+Base * Base::getBlist(){
+	return blist;
 }
