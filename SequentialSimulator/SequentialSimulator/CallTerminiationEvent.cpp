@@ -14,6 +14,7 @@ void CallTerminationEvent::handleEvent(Base blist[]){
 
 string CallTerminationEvent::getOutput(){
 	stringstream ss;
-	ss<<this->getEventID()<<"\t"<<"Termi\t\t"<<time<<"\t"<<baseID<<std::endl;
+	//ss<<this->getEventID()<<"\t"<<"Termi\t\t"<<time<<"\t"<<baseID<<std::endl;
+	ss<<"i'm terminator"<<"\t"<<time<<endl;
 	return ss.str();
 }

@@ -17,8 +17,11 @@ void CallInitiationEvent::handleEvent(Base blist[]){
 		base->incOccupiedChannel();
 		float handoverTS = time + 3600*(DIAMETER-position)/speed;
 		float terminationTS = time + duration;
-		if(handoverTS<terminationTS && baseID+1<20)
-			new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS);
+		if(handoverTS<terminationTS)
+			if(baseID+1<20)
+				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS);
+			else
+				new CallTerminationEvent(terminationTS, baseID);
 		else
 			new CallTerminationEvent(terminationTS, baseID);
 	}else
@@ -29,7 +32,8 @@ void CallInitiationEvent::handleEvent(Base blist[]){
 
 string CallInitiationEvent::getOutput(){
 	stringstream ss;
-	ss<<this->getEventID()<<"\t"<<"Init\t"<<arrivalNo<<"\t"<<time<<"\t"
-		<<baseID<<"\t"<<speed<<"\t"<<duration<<"\t"<<position<<std::endl;
+	//ss<<this->getEventID()<<"\t"<<"Init\t"<<arrivalNo<<"\t"<<time<<"\t"
+	//	<<baseID<<"\t"<<speed<<"\t"<<duration<<"\t"<<position<<std::endl;
+	ss<<"i'm initiater"<<"\t"<<time<<endl;
 	return ss.str();
 }
