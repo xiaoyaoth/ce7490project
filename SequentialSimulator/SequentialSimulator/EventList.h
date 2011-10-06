@@ -2,10 +2,15 @@
 #define EVENTLIST_H
 
 #include "Event.h"
+#include <queue>
 
 class EventList
 {
 private:
+	class compare{
+
+	};
+	static priority_queue<Event> queue;
 	static Event * head;
 	static Event * currPtr;
 public:

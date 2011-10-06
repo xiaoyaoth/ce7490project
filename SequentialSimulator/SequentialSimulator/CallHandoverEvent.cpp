@@ -30,7 +30,8 @@ void CallHandoverEvent::handleEvent(Base blist[]){
 
 string CallHandoverEvent::getOutput(){
 	stringstream ss;
-	ss<<this->getEventID()<<"\t"<<"Hando\t\t"<<time
-		<<"\t"<<baseID<<"\t"<<speed<<"\t"<<duration<<std::endl;
+	//ss<<this->getEventID()<<"\t"<<"Hando\t\t"<<time
+	//	<<"\t"<<baseID<<"\t"<<speed<<"\t"<<duration<<std::endl;
+	ss<<"i'm handover"<<"\t"<<time<<endl;
 	return ss.str();
 }

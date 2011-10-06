@@ -1,5 +1,6 @@
 #include "EventList.h"
 #include <iostream>
+#include <queue>
 
 Event * EventList::head = NULL; /*initialize the static member "head" */
 Event * EventList::currPtr = NULL; /*initialize the static member "ptr" */

@@ -11,12 +11,14 @@
 #include <fstream>
 #include <string>
 #include <cstring>
+#include <queue>
 
 using namespace std;
 
 /*use ctrl+F5 to pause the execution at the end*/
 /*linker problem is solved. the problem is caused because I didn't implement the function*/
 void parseData(string rec);
+void testQueue();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -79,4 +81,6 @@ void parseData(string rec){
 	new CallInitiationEvent(time, speed, baseID, POS, duration, no);
 	return;
 }
+
+
 
