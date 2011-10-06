@@ -17,8 +17,11 @@ void CallHandoverEvent::handleEvent(Base blist[]){
 		base->incOccupiedChannel();
 		float handoverTS = time+3600*DIAMETER/speed;
 		float terminationTS = time + duration;
-		if(handoverTS<terminationTS && baseID+1<19)
-			new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS);
+		if(handoverTS<terminationTS)
+			if(baseID+1<20)
+				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS);
+			else
+				new CallTerminationEvent(terminationTS, baseID);
 		else
 			new CallTerminationEvent(terminationTS, baseID);
 	}else //all the channel occupied
