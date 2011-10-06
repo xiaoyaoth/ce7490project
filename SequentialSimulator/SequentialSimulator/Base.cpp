@@ -35,7 +35,7 @@ void Base::decOccupiedChannel(){
 
 string Base::toString(){
 	stringstream ss;
-	ss<<"baseID:"<<baseID<<" oc:"<<occupiedChannel<<std::endl;
+	ss<<"baseID:"<<baseID<<"\toc:"<<occupiedChannel;
 	return ss.str();
 }
 

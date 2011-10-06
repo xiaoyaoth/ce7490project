@@ -10,9 +10,9 @@ private:
 	float speed;
 	float duration;
 public:
-	CallHandoverEvent(float t, float s, int bid, float d);
+	CallHandoverEvent(float t, float s, int bid, float d, int ano);
 	void handleEvent(Base blist[]);
-	string getOutput();
+	string getOutput(Base blist[]);
 };
 
 #endif

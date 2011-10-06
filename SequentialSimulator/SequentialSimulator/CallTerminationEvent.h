@@ -8,8 +8,8 @@ class CallTerminationEvent : public Event
 private:
 	;
 public:
-	CallTerminationEvent(float t, int bid);
+	CallTerminationEvent(float t, int bid, int ano);
 	void handleEvent(Base blist[]);
-	string getOutput();
+	string getOutput(Base blist[]);
 };
 #endif

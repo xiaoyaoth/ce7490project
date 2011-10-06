@@ -1,9 +1,8 @@
 #include "CallInitiationEvent.h"
 
 CallInitiationEvent::CallInitiationEvent(float t, float s, int bid, float p, float d, int no)
-	:Event(t, bid)
+	:Event(t, bid, no)
 {
-	arrivalNo = no;
 	speed = s;
 	position = p;
 	duration = d;
@@ -19,21 +18,21 @@ void CallInitiationEvent::handleEvent(Base blist[]){
 		float terminationTS = time + duration;
 		if(handoverTS<terminationTS)
 			if(baseID+1<20)
-				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS);
+				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS, arrivalNo);
 			else
-				new CallTerminationEvent(terminationTS, baseID);
+				new CallTerminationEvent(handoverTS, baseID, arrivalNo);
 		else
-			new CallTerminationEvent(terminationTS, baseID);
+			new CallTerminationEvent(terminationTS, baseID, arrivalNo);
 	}else
 		Event::block++;
 
 }
 
 
-string CallInitiationEvent::getOutput(){
+string CallInitiationEvent::getOutput(Base blist[]){
 	stringstream ss;
 	//ss<<this->getEventID()<<"\t"<<"Init\t"<<arrivalNo<<"\t"<<time<<"\t"
 	//	<<baseID<<"\t"<<speed<<"\t"<<duration<<"\t"<<position<<std::endl;
-	ss<<"i'm initiater"<<"\t"<<time<<endl;
+	ss<<"i'm initiater"<<"\t"<<time<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()<<endl;
 	return ss.str();
 }
