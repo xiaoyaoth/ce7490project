@@ -1,7 +1,7 @@
 #include "CallHandoverEvent.h"
 
-CallHandoverEvent::CallHandoverEvent(float t, float s, int bid, float d)
-	:Event(t, bid)
+CallHandoverEvent::CallHandoverEvent(float t, float s, int bid, float d, int ano)
+	:Event(t, bid, ano)
 {
 	speed = s;
 	duration = d;
@@ -19,19 +19,19 @@ void CallHandoverEvent::handleEvent(Base blist[]){
 		float terminationTS = time + duration;
 		if(handoverTS<terminationTS)
 			if(baseID+1<20)
-				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS);
+				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS, arrivalNo);
 			else
-				new CallTerminationEvent(terminationTS, baseID);
+				new CallTerminationEvent(handoverTS, baseID, arrivalNo);
 		else
-			new CallTerminationEvent(terminationTS, baseID);
+			new CallTerminationEvent(terminationTS, baseID, arrivalNo);
 	}else //all the channel occupied
 		Event::drop++;
 }
 
-string CallHandoverEvent::getOutput(){
+string CallHandoverEvent::getOutput(Base blist[]){
 	stringstream ss;
 	//ss<<this->getEventID()<<"\t"<<"Hando\t\t"<<time
 	//	<<"\t"<<baseID<<"\t"<<speed<<"\t"<<duration<<std::endl;
-	ss<<"i'm handover"<<"\t"<<time<<endl;
+	ss<<"i'm handover"<<"\t"<<time<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()<<endl;
 	return ss.str();
 }

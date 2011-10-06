@@ -26,8 +26,9 @@ protected:
 	/*Event attribute*/
 	float time;
 	int baseID;
+	int arrivalNo;
 	Event * nextEvent;
-	int eid;
+	//int eid;
 
 	static int counter;
 
@@ -40,15 +41,16 @@ protected:
 public:
 
 	Event();
-	Event(float time, int baseID);
+	Event(float time, int baseID, int ano);
 	float getTime();
 	int getBaseID();
 	Event * getNextEventPtr();
 	void setNextEventPtr(Event * e);
 	int getEventID();
+	int getArrivalNo();
 
 	virtual void handleEvent(Base blist[]);
-	virtual string getOutput();
+	virtual string getOutput(Base blist[]);
 
 	static string getResult();
 };

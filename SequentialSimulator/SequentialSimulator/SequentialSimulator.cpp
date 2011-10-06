@@ -39,11 +39,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	parseData(rec);
 
 	//fout<<"EventID\tType\tarvlNo\ttime\tbaseID\tspeed\tdura\tposition"<<std::endl;
-	int i = 0;
+	int j = 0;
 	Event * cur = EventList::getHead();
 	while(cur!=NULL){
 		cur->handleEvent(blist);
-		fout<<cur->getOutput();
+		//if(cur->getArrivalNo() == 9)
+			fout<<cur->getOutput(blist);
 		if(!fin.eof()){
 			getline(fin, rec);
 			parseData(rec);

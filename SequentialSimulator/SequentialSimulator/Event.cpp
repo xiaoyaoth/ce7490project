@@ -8,11 +8,11 @@ int Event::block = 0;
 
 int Event::counter = 0;
 
-Event::Event(float t, int bid){
+Event::Event(float t, int bid, int ano){
 	time = t;
 	baseID = bid;
+	arrivalNo = ano;
 	nextEvent = NULL;
-	eid = counter++;
 
 	EventList::insert(this);
 	Event::total++;
@@ -29,10 +29,6 @@ int Event::getBaseID(){
 	return baseID;
 }
 
-int Event::getEventID(){
-	return eid;
-}
-
 void Event::setNextEventPtr(Event * e){
 	nextEvent = e;
 }
@@ -45,9 +41,9 @@ void Event::handleEvent(Base blist[]){
 	std::cout<<"general func of handling event"<<std::endl;
 }
 
-string Event::getOutput(){
+string Event::getOutput(Base blist[]){
 	stringstream ss;
-	ss<<"vitual"<<"\t"<<time<<"\t"<<baseID<<std::endl;
+	ss<<"vitual"<<"\t"<<time<<"\t"<<blist[baseID].toString()<<std::endl;
 	return ss.str();
 }
 
@@ -56,6 +52,10 @@ string Event::getResult(){
 	ss<<"success\tdrop\tblock\t"<<endl;
 	ss<<Event::success<<"\t"<<Event::drop<<"\t"<<Event::block<<endl;
 	return ss.str();
+}
+
+int Event::getArrivalNo(){
+	return arrivalNo;
 }
 
 /* http://en.wikipedia.org/wiki/Virtual_function 

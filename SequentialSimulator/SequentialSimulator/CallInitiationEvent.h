@@ -9,13 +9,12 @@
 class CallInitiationEvent : public Event
 {
 private:
-	int arrivalNo;
 	float speed;
 	float duration;
 	float position;
 public:
 	CallInitiationEvent(float time, float speed, int BaseID, float position, float duration, int no);
 	void handleEvent(Base blist[]);
-	string getOutput();
+	string getOutput(Base blist[]);
 };
 #endif
