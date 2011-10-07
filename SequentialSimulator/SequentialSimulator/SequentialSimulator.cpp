@@ -51,7 +51,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		cur = EventList::getNextEvent(); /**/
 	}
-
 	cout<<Event::getResult();
 	fout<<Event::getResult();
 	fin.close();

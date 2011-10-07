@@ -33,6 +33,8 @@ string CallInitiationEvent::getOutput(Base blist[]){
 	stringstream ss;
 	//ss<<this->getEventID()<<"\t"<<"Init\t"<<arrivalNo<<"\t"<<time<<"\t"
 	//	<<baseID<<"\t"<<speed<<"\t"<<duration<<"\t"<<position<<std::endl;
-	ss<<"i'm initiater"<<"\t"<<time<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()<<endl;
+	ss<<"i'm initiater"<<"\t"<<time
+		//<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
+		<<endl;
 	return ss.str();
 }
