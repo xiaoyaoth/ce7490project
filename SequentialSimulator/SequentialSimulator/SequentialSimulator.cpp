@@ -24,8 +24,8 @@ void mainLogic();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	transferJiongData();
-	//mainLogic();
+	//transferJiongData();
+	mainLogic();
 	return 0;
 }
 
