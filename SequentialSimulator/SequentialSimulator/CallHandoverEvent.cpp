@@ -31,8 +31,11 @@ string CallHandoverEvent::getOutput(Base blist[]){
 	stringstream ss;
 	//ss<<this->getEventID()<<"\t"<<"Hando\t\t"<<time
 	//	<<"\t"<<baseID<<"\t"<<speed<<"\t"<<duration<<std::endl;
-	ss<<"i'm handover"<<"\t"<<time
+
+	ss<<"h"<<"\t"<<time
 		//<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
 		<<endl;
+
+	//ss<<arrivalNo<<"\t"<<time<<endl;
 	return ss.str();
 }
