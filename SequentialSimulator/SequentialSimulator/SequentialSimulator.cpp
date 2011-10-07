@@ -19,9 +19,17 @@ using namespace std;
 /*linker problem is solved. the problem is caused because I didn't implement the function*/
 void parseData(string rec);
 void testQueue();
+void transferJiongData();
+void mainLogic();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	transferJiongData();
+	//mainLogic();
+	return 0;
+}
+
+void mainLogic(){
 	Base * blist = Base::getBlist();
 	for(int i=0; i<BASENO; i++){
 		blist[i].setBaseID(i);
@@ -43,20 +51,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	Event * cur = EventList::getHead();
 	while(cur!=NULL){
 		cur->handleEvent(blist);
-		//if(cur->getArrivalNo() == 9)
-			fout<<cur->getOutput(blist);
+		//if(cur->getArrivalNo() == 1)
+		fout<<cur->getOutput(blist);
 		if(!fin.eof()){
 			getline(fin, rec);
 			parseData(rec);
 		}
-		cur = EventList::getNextEvent(); /**/
+		cur = EventList::getNextEvent(); 
 	}
 	cout<<Event::getResult();
 	fout<<Event::getResult();
 	fin.close();
 	fout.close();
-
-	return 0;
 }
 
 void parseData(string rec){
@@ -80,6 +86,32 @@ void parseData(string rec){
 
 	new CallInitiationEvent(time, speed, baseID, POS, duration, no);
 	return;
+}
+
+void transferJiongData(){
+	ifstream fin;
+	fin.open("chiData.txt");
+	ofstream fout("chiDataOut.txt");
+	string rec;
+	while(!fin.eof()){
+		getline(fin, rec);
+		char * cstr, *p;
+		float time;
+		cstr = new char[rec.size()+1];
+		strcpy_s(cstr,rec.size()+1, rec.c_str());
+		p = strtok(cstr, "\t");
+		if(strcmp(p, "i'm initiater")== 0)
+			fout<<"i\t";
+		else if(strcmp(p, "i'm handover")== 0)
+			fout<<"h\t";
+		else if(strcmp(p, "i'm terminator")== 0)
+			fout<<"t\t";
+		p = strtok(NULL, "\t");
+		time = atof(p);
+		fout<<time<<endl;
+	}
+	fin.close();
+	fout.close();
 }
 
 
