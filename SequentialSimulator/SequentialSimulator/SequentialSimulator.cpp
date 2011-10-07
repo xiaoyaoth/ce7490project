@@ -1,5 +1,9 @@
 // SequentialSimulator.cpp : Defines the entry point for the console application.
 //
+
+#define _USE_MATH_DEFINES /*the #define must come before the #include.*/
+#define SAMPLENO 3000
+
 #include "Base.h"
 #include "Event.h"
 #include "EventList.h"
@@ -12,6 +16,9 @@
 #include <string>
 #include <cstring>
 #include <queue>
+#include <ctime>
+#include <cstdlib>
+#include <cmath>
 
 using namespace std;
 
@@ -21,11 +28,19 @@ void parseData(string rec);
 void testQueue();
 void transferJiongData();
 void mainLogic();
+void generate01();
+void generateExponential();
+void generateTriangle();
+void generateNormal();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	//transferJiongData();
-	mainLogic();
+	//mainLogic();
+	//generate01();
+	//generateExponential();
+	//generateTriangle();
+	generateNormal();
 	return 0;
 }
 
@@ -114,5 +129,56 @@ void transferJiongData(){
 	fout.close();
 }
 
+void generate01(){
+	ofstream fout("stoch_01.txt");
+	srand((unsigned) time(NULL));
+	int i = 0;
+	while(++i<=SAMPLENO){
+		fout<<(double)rand()/RAND_MAX<<endl;
+	}
+}
+
+void generateExponential(){
+	ofstream fout("stoch_exponential.txt");
+	srand((unsigned) time(NULL));
+	const double lambda = 0.00625;
+	int i = 0;
+	double x,r;
+	while(++i<=SAMPLENO){
+		r = (double)rand()/RAND_MAX;
+		x = -1/lambda*log(r);
+		fout<<x<<endl;
+	}
+}
+
+void generateTriangle(){
+	ofstream fout("stoch_triangle.txt");
+	srand((unsigned) time(NULL));
+	int i = 0;
+	double x,r;
+	while(++i<=SAMPLENO){
+		r = (double)rand()/RAND_MAX;
+		if(r>=0&&r<0.75)
+			x = sqrt(1200*r);
+		else
+			x = 40 - 20*sqrt(1-r);
+		fout<<x<<" "<<r<<endl;
+	}
+}
+
+void generateNormal(){
+	ofstream fout("stoch_normal.txt");
+	srand((unsigned) time(NULL));
+	int i = 0;
+	const double miu = 100;
+	const double sigma = 9;
+	double x, r1, r2;
+	while(++i<=SAMPLENO){
+		r1 = (double)rand()/RAND_MAX;
+		r2 = (double)rand()/RAND_MAX;
+		x = miu+sigma*cos(2*M_PI*r1)*sqrt(-2*log10(r2));
+		fout<<x<<endl;
+	}
+}
 
 
