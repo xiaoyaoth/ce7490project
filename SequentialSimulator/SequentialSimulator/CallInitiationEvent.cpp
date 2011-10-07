@@ -35,7 +35,7 @@ string CallInitiationEvent::getOutput(Base blist[]){
 	//	<<baseID<<"\t"<<speed<<"\t"<<duration<<"\t"<<position<<std::endl;
 
 	ss<<"i"<<"\t"<<time
-		//<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
+		<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
 		<<endl;
 
 	//ss<<arrivalNo<<"\t"<<time<<endl;

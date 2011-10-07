@@ -48,7 +48,7 @@ void mainLogic(){
 
 	//fout<<"EventID\tType\tarvlNo\ttime\tbaseID\tspeed\tdura\tposition"<<std::endl;
 	int j = 0;
-	Event * cur = EventList::getHead();
+	Event * cur = EventList::getNextEvent();
 	while(cur!=NULL){
 		cur->handleEvent(blist);
 		//if(cur->getArrivalNo() == 1)

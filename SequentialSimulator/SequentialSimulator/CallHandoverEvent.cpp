@@ -33,7 +33,7 @@ string CallHandoverEvent::getOutput(Base blist[]){
 	//	<<"\t"<<baseID<<"\t"<<speed<<"\t"<<duration<<std::endl;
 
 	ss<<"h"<<"\t"<<time
-		//<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
+		<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
 		<<endl;
 
 	//ss<<arrivalNo<<"\t"<<time<<endl;

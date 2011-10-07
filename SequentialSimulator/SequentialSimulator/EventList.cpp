@@ -2,46 +2,22 @@
 #include <iostream>
 #include <queue>
 
-Event * EventList::head = NULL; /*initialize the static member "head" */
-Event * EventList::currPtr = NULL; /*initialize the static member "ptr" */
+priority_queue<Event*, vector<Event*>, comp> EventList::queue;
 
 EventList::EventList(Event *e){
-	head = e;
-	currPtr = e;
+	queue.empty();
 }
 
 void EventList::insert(Event * e){
-	Event * temp = currPtr;
-	if(temp == NULL){
-		head = e;
-		currPtr = e;
-		return;
-	}else if(e->getTime()<head->getTime()){
-		e->setNextEventPtr(head);
-		head = e;
-		return;
-	}
-	while(temp->getNextEventPtr() != NULL){
-		if(e->getTime() > temp->getTime() 
-			&& e->getTime()< temp->getNextEventPtr()->getTime()){
-				e->setNextEventPtr(temp->getNextEventPtr());
-				temp->setNextEventPtr(e);
-				return;
-		}
-		temp = temp->getNextEventPtr();
-	}
-	temp->setNextEventPtr(e);
+	queue.push(e);
 	return;
 }
 
 Event * EventList::getNextEvent(){
-	if(currPtr->getNextEventPtr() != NULL){
-		currPtr = currPtr->getNextEventPtr();
-		return currPtr;
-	}else
+	if(queue.size()>0){
+		Event * ret = queue.top();
+		queue.pop();
+		return ret;
+	} else
 		return NULL;
-}
-
-Event * EventList::getHead(){
-	return head;
 }
