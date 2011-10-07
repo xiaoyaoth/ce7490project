@@ -17,7 +17,7 @@ string CallTerminationEvent::getOutput(Base blist[]){
 	//ss<<this->getEventID()<<"\t"<<"Termi\t\t"<<time<<"\t"<<baseID<<std::endl;
 
 	ss<<"t"<<"\t"<<time
-		//<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
+		<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
 		<<endl;
 
 	//ss<<arrivalNo<<"\t"<<time<<endl;
