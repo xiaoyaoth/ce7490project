@@ -13,6 +13,10 @@
 #define POS 1
 #endif
 
+#ifndef SCHEME
+#define SCHEME 1
+#endif
+
 #include <iostream>
 #include <sstream>
 #include "Base.h"

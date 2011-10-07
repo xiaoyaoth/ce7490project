@@ -33,6 +33,7 @@ void mainLogic(){
 	Base * blist = Base::getBlist();
 	for(int i=0; i<BASENO; i++){
 		blist[i].setBaseID(i);
+		blist[i].initializeReservation();
 		//cout<<blist[i].toString();
 	}
 
@@ -51,7 +52,6 @@ void mainLogic(){
 	Event * cur = EventList::getNextEvent();
 	while(cur!=NULL){
 		cur->handleEvent(blist);
-		//if(cur->getArrivalNo() == 1)
 		fout<<cur->getOutput(blist);
 		if(!fin.eof()){
 			getline(fin, rec);
