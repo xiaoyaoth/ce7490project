@@ -49,8 +49,9 @@ string Event::getOutput(Base blist[]){
 
 string Event::getResult(){
 	stringstream ss;
-	ss<<"success\tdrop\tblock\t"<<endl;
-	ss<<Event::success<<"\t"<<Event::drop<<"\t"<<Event::block<<endl;
+	int total=Event::success+Event::drop+Event::block;
+	ss<<"success\tdrop\tblock\tdroprate\tblockrate"<<endl;
+	ss<<Event::success<<"\t"<<Event::drop<<"\t"<<Event::block<<"\t"<<(double)(Event::drop)/total<<"\t"<<(double)Event::block/total<<"\t"<<endl;
 	return ss.str();
 }
 
