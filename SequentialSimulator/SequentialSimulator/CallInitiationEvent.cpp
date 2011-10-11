@@ -24,7 +24,7 @@ void CallInitiationEvent::scheme0(Base blist[]){
 		float handoverTS = time + 3600*(DIAMETER-position)/speed;
 		float terminationTS = time + duration;
 		if(handoverTS<terminationTS)
-			if(baseID+1<20)
+			if(baseID<19)
 				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS, arrivalNo);
 			else
 				new CallTerminationEvent(handoverTS, baseID, arrivalNo);
@@ -65,6 +65,7 @@ string CallInitiationEvent::getOutput(Base blist[]){
 	//ss<<this->getEventID()<<"\t"<<"Init\t"<<arrivalNo<<"\t"<<time<<"\t"
 	//	<<baseID<<"\t"<<speed<<"\t"<<duration<<"\t"<<position<<std::endl;
 
+    //cout<<"i"<<"\t"<<time<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString();
 	ss<<"i"<<"\t"<<time
 		<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
 		<<endl;

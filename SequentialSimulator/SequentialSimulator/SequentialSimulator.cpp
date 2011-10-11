@@ -37,19 +37,23 @@ void generate01();
 void generateExponential();
 void generateTriangle();
 void generateNormal();
+void testre();
 double generateData(int,double);
 
-//ofstream outdata("1.txt");
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	//transferJiongData();
 	//mainLogic_deterministic();
-	mainLogic_stochastic();
+	//mainLogic_stochastic();
+	stochastic();
+	mainLogic();
 	//generate01();
 	//generateExponential();
 	//generateTriangle();
 	//generateNormal();
+	//testre();
 	return 0;
 }
 
@@ -95,10 +99,10 @@ void mainLogic_deterministic(){
 	
 }
 
+/*deal the stochastic data*/
 void mainLogic(){
 
-//	stochastic();
-	
+//	stochastic();	
 	Base * blist = Base::getBlist();
 	for(int i=0; i<BASENO; i++){
 		blist[i].setBaseID(i);
@@ -124,18 +128,12 @@ void mainLogic(){
 		cur->handleEvent(blist);
 		//if(cur->getArrivalNo() == 1)
 		fout<<cur->getOutput(blist);
-		if(re_num<500)
-		{
-			getline(fin, rec);
-			parseData_stochastic(rec);
-            re_num++;
-   		}
-		/*
+
 		if(!fin.eof()){
 			getline(fin, rec);
+			if(rec!="")
 			parseData_stochastic(rec);
 		}
-		*/
 		cur = EventList::getNextEvent(); 
 	}
 	cout<<Event::getResult();
@@ -143,44 +141,10 @@ void mainLogic(){
 	fin.close();
 	fout.close();
 	
-	/*
-	Base * blist = Base::getBlist();
-	for(int i=0; i<BASENO; i++){
-		blist[i].setBaseID(i);
-		//cout<<blist[i].toString();
-	}
-
-	ifstream fin;
-	fin.open("data.txt");
-	ofstream fout("out.txt");
-
-	if(!fin)
-		cout<<"file not exist"<<endl;
-	string rec; //one record
-	getline(fin, rec);
-	parseData(rec);
-
-	//fout<<"EventID\tType\tarvlNo\ttime\tbaseID\tspeed\tdura\tposition"<<std::endl;
-	int j = 0;
-	Event * cur = EventList::getNextEvent();
-	while(cur!=NULL){
-		cur->handleEvent(blist);
-		fout<<cur->getOutput(blist);
-		if(!fin.eof()){
-			getline(fin, rec);
-			parseData(rec);
-		}
-		cur = EventList::getNextEvent(); 
-	}
-	cout<<Event::getResult();
-	fout<<Event::getResult();
-	fin.close();
-	fout.close();
-	*/
 }
 
 
-
+/*generate the data one by one*/
 void mainLogic_stochastic(){
 	int no=1,count=0;
 	double curtime=0;
@@ -209,7 +173,7 @@ void mainLogic_stochastic(){
 	fout.close();
 	
 }
-double generateData(int number,double curtime)
+double generateData(int number,double curtime)//generate an element data
 {
 	int no, baseID;
 	double intertime, arritime,duration, speed,position,po,r1,r2;
@@ -342,8 +306,27 @@ void generate01(){
 
 }
 
-void stasticsUniform()
+void testre()
 {
+ 	ifstream fin;
+	fin.open("Da.txt");
+	ofstream fout("out.txt");
+	int cc=0;
+	if(!fin)
+		cout<<"file not exist"<<endl;
+	string rec; //one record
+	getline(fin, rec);
+	cout<<rec<<endl;
+	//getline(fin, rec);
+	while(!fin.eof()){
+		getline(fin, rec);
+		if(rec!="")
+		{
+		cc++;
+		cout<<rec<<endl;
+		cout<<cc<<endl;
+		}
+		}
 }
 
 void generateExponential(){
