@@ -5,6 +5,8 @@
 #include "CallTerminationEvent.h"
 #include <queue>
 
+using namespace std;
+
 struct comp{
 	bool operator() (Event *e1, Event *e2){
 		return e1->getTime()>e2->getTime();
