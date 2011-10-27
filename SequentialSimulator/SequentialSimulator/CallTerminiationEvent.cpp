@@ -4,12 +4,14 @@ CallTerminationEvent::CallTerminationEvent(float t, int bid, int ano)
 	:Event(t, bid, ano)
 {
 	prevCallReserved = false;
+	print = true;
 }
 
 CallTerminationEvent::CallTerminationEvent(float t, int bid, int ano, bool rc)
 	:Event(t, bid, ano)
 {
 	prevCallReserved = rc;
+	print = true;
 }
 
 void CallTerminationEvent::handleEvent(Base blist[]){
@@ -40,8 +42,10 @@ string CallTerminationEvent::getOutput(Base blist[]){
 	stringstream ss;
 	//ss<<this->getEventID()<<"\t"<<"Termi\t\t"<<time<<"\t"<<baseID<<std::endl;
 
+	if(print)
 	ss<<"t "<<prevCallReserved<<"\t"<<time
-		<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
+		<<"\t"<<arrivalNo
+		//<<"\t"<<blist[baseID].toString()
 		<<endl;
 
 	//ss<<arrivalNo<<"\t"<<time<<endl;

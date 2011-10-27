@@ -25,19 +25,19 @@ void CallHandoverEvent::handleEvent(Base blist[]){
 
 void CallHandoverEvent::scheme0(Base * blist){
 	Base *base = &blist[baseID];
-	Base *prevBase = &blist[baseID-1];
-	prevBase->decOccupiedChannel();
+	//Base *prevBase = &blist[baseID-1];
+	//prevBase->decOccupiedChannel();
 	int oc = base->getOccupiedChannel(); //occupied channel amount
 	if(oc<10){//not all the channel occupied
 		base->incOccupiedChannel();
 		float handoverTS = time+3600*DIAMETER/speed;
 		float terminationTS = time + duration;
-		if(handoverTS<terminationTS)
+		if(handoverTS<terminationTS){
 			if(baseID+1<20)
 				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS, arrivalNo);
-			else
-				new CallTerminationEvent(handoverTS, baseID, arrivalNo);
-		else
+			CallTerminationEvent *cte = new CallTerminationEvent(handoverTS+0.0001, baseID, arrivalNo);
+			cte->print = false;
+		} else
 			new CallTerminationEvent(terminationTS, baseID, arrivalNo);
 	}else //all the channel occupied
 		Event::drop++;
@@ -46,10 +46,10 @@ void CallHandoverEvent::scheme0(Base * blist){
 
 void CallHandoverEvent::scheme1(Base * blist){
 	Base *base = &blist[baseID];
-	Base *prevBase = &blist[baseID-1];
-	prevBase->decOccupiedChannel();
-	if(prevCallReserved == true)
-		prevBase->toggleReservation(); //?
+	//Base *prevBase = &blist[baseID-1];
+	//prevBase->decOccupiedChannel();
+	//if(prevCallReserved == true)
+	//	prevBase->toggleReservation(); //?
 
 	int oc = base->getOccupiedChannel();
 	bool rco = base->isReservedChannelOccupied();//reservedChannleOccupied
@@ -62,12 +62,11 @@ void CallHandoverEvent::scheme1(Base * blist){
 		base->incOccupiedChannel();
 		float handoverTS = time+3600*DIAMETER/speed;
 		float terminationTS = time + duration;
-		if(handoverTS<terminationTS)
+		if(handoverTS<terminationTS){
 			if(baseID+1<20)
 				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS, arrivalNo, rc);
-			else
-				new CallTerminationEvent(handoverTS, baseID, arrivalNo, rc);
-		else
+			new CallTerminationEvent(handoverTS+0.01, baseID, arrivalNo, rc);
+		} else
 			new CallTerminationEvent(terminationTS, baseID, arrivalNo, rc);
 	}else //all the channel occupied
 		Event::drop++;
@@ -80,7 +79,8 @@ string CallHandoverEvent::getOutput(Base blist[]){
 	//	<<"\t"<<baseID<<"\t"<<speed<<"\t"<<duration<<std::endl;
 
 	ss<<"h "<<this->prevCallReserved<<"\t"<<time
-		<<"\t"<<arrivalNo<<"\t"<<blist[baseID].toString()
+		<<"\t"<<arrivalNo
+		//<<"\t"<<blist[baseID].toString()
 		<<endl;
 
 	//ss<<arrivalNo<<"\t"<<time<<endl;
