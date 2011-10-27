@@ -1,5 +1,6 @@
 #include "Event.h"
 #include "EventList.h"
+#include <iostream>
 
 int Event::drop = 0;
 int Event::success = 0;
@@ -41,17 +42,10 @@ void Event::handleEvent(Base blist[]){
 	std::cout<<"general func of handling event"<<std::endl;
 }
 
-string Event::getOutput(Base blist[]){
-	stringstream ss;
-	ss<<"vitual"<<"\t"<<time<<"\t"<<blist[baseID].toString()<<std::endl;
-	return ss.str();
-}
 
-string Event::getResult(){
-	stringstream ss;
-	ss<<"success\tdrop\tblock\t"<<endl;
-	ss<<Event::success<<"\t"<<Event::drop<<"\t"<<Event::block<<endl;
-	return ss.str();
+void Event::getResult(){
+	cout<<"success\tdrop\tblock\t"<<endl;
+	cout<<Event::success<<"\t"<<Event::drop<<"\t"<<Event::block<<endl;
 }
 
 int Event::getArrivalNo(){

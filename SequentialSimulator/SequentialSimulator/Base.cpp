@@ -1,5 +1,4 @@
 #include "Base.h"
-#include <iostream>
 
 Base * Base::blist = new Base[BASENO];
 
@@ -52,13 +51,6 @@ void Base::toggleReservation(){
 
 bool Base::isReservedChannelOccupied(){
 	return reservedChannelOccupied;
-}
-
-string Base::toString(){
-	stringstream ss;
-	//if(3 == baseID)
-	ss<<baseID<<"_"<<occupiedChannel<<"_"<<reservedChannelOccupied;
-	return ss.str();
 }
 
 Base * Base::getBlist(){

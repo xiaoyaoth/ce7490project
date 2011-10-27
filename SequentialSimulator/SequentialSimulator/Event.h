@@ -17,11 +17,7 @@
 #define SCHEME 1
 #endif
 
-#include <iostream>
-#include <sstream>
 #include "Base.h"
-
-using namespace std;
 
 class Event{
 
@@ -54,8 +50,7 @@ public:
 	int getArrivalNo();
 
 	virtual void handleEvent(Base blist[]);
-	virtual string getOutput(Base blist[]);
 
-	static string getResult();
+	static void getResult();
 };
 #endif
