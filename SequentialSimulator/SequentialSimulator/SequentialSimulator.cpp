@@ -11,7 +11,6 @@
 #include "CallHandoverEvent.h"
 #include "CallInitiationEvent.h"
 #include "CallTerminationEvent.h"
-#include "stdafx.h"
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -34,7 +33,7 @@ void generateExponential();
 void generateTriangle();
 void generateNormal();
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 	clock_t time;
 	time = clock();
@@ -48,6 +47,7 @@ int _tmain(int argc, _TCHAR* argv[])
 }
 
 void mainLogic(){
+	clock_t t1 = clock();
 	bool debug = true;
 	Base * blist = Base::getBlist();
 	for(int i=0; i<BASENO; i++){
@@ -57,33 +57,31 @@ void mainLogic(){
 	}
 
 	ifstream fin;
-	fin.open("data.txt");
+	fin.open("data.txt.100w");
 
 	if(!fin)
 		cout<<"file not exist"<<endl;
 	string rec; //one record
-	getline(fin, rec);
-	parseData(rec);
-
-	//fout<<"EventID\tType\tarvlNo\ttime\tbaseID\tspeed\tdura\tposition"<<std::endl;
+	int i = 0;
+	while(!fin.eof()){
+		getline(fin, rec);
+		parseData(rec);
+		if(++i%100000==0)
+			cout<<i<<endl;
+	}
+	clock_t t2 = clock();
 	int j = 0;
 	Event * cur = EventList::getNextEvent();
 	while(cur!=NULL){
-		//cout<<cur->getOutput(blist);
 		cur->handleEvent(blist);
-		
-		if(!fin.eof()){
-			getline(fin, rec);
-			parseData(rec);
-		}
 		delete cur;
 		cur = EventList::getNextEvent();
 	}
-
+	clock_t t3 = clock();
+	cout<<"time with io:"<<t3-t1<<endl;
+	cout<<"time without io:"<<t3-t2<<endl;
 	Event::getResult();
-	//fout<<Event::getResult();
 	fin.close();
-	//fout.close();
 }
 
 void parseData(string rec){
@@ -93,10 +91,12 @@ void parseData(string rec){
 	float position;
 
 	cstr = new char[rec.size()+1];
-	strcpy_s(cstr, rec.size()+1, rec.c_str());
+	strcpy(cstr, rec.c_str());
 
 	p=strtok (cstr,"\t");
 	no = atoi(p);
+	if(no==1000000)
+		cout<<no;
 	p=strtok(NULL,"\t");
 	time = (float)atof(p);
 	p=strtok(NULL,"\t");

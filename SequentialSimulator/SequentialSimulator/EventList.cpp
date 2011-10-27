@@ -1,6 +1,4 @@
 #include "EventList.h"
-#include <iostream>
-#include <queue>
 
 priority_queue<Event*, vector<Event*>, comp> EventList::queue;
 
