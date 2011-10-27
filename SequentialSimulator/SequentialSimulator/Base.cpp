@@ -56,8 +56,8 @@ bool Base::isReservedChannelOccupied(){
 
 string Base::toString(){
 	stringstream ss;
-	if(10 == baseID)
-	ss<<"baseID:"<<baseID<<"\toc:"<<occupiedChannel<<"\trco:"<<reservedChannelOccupied;
+	//if(3 == baseID)
+	ss<<baseID<<"_"<<occupiedChannel<<"_"<<reservedChannelOccupied;
 	return ss.str();
 }
 

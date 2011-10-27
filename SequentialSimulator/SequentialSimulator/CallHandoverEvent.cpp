@@ -65,7 +65,8 @@ void CallHandoverEvent::scheme1(Base * blist){
 		if(handoverTS<terminationTS){
 			if(baseID+1<20)
 				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS, arrivalNo, rc);
-			new CallTerminationEvent(handoverTS+0.01, baseID, arrivalNo, rc);
+			CallTerminationEvent *cte = new CallTerminationEvent(handoverTS, baseID, arrivalNo, rc);
+			cte->print = false;
 		} else
 			new CallTerminationEvent(terminationTS, baseID, arrivalNo, rc);
 	}else //all the channel occupied
@@ -80,8 +81,7 @@ string CallHandoverEvent::getOutput(Base blist[]){
 
 	ss<<"h "<<this->prevCallReserved<<"\t"<<time
 		<<"\t"<<arrivalNo
-		//<<"\t"<<blist[baseID].toString()
-		<<endl;
+		<<" "<<blist[baseID].toString()<<endl;
 
 	//ss<<arrivalNo<<"\t"<<time<<endl;
 	return ss.str();
