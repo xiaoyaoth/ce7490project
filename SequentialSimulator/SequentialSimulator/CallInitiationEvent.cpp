@@ -59,16 +59,3 @@ void CallInitiationEvent::scheme1(Base blist[]){
 		Event::block++;
 	return;
 }
-
-string CallInitiationEvent::getOutput(Base blist[]){
-	stringstream ss;
-	//ss<<this->getEventID()<<"\t"<<"Init\t"<<arrivalNo<<"\t"<<time<<"\t"
-	//	<<baseID<<"\t"<<speed<<"\t"<<duration<<"\t"<<position<<std::endl;
-
-	ss<<"i"<<"\t"<<time
-		<<"\t"<<arrivalNo
-		<<" "<<blist[baseID].toString()<<endl;
-
-	//ss<<arrivalNo<<"\t"<<time<<endl;
-	return ss.str();
-}

@@ -74,15 +74,3 @@ void CallHandoverEvent::scheme1(Base * blist){
 	return;
 }
 
-string CallHandoverEvent::getOutput(Base blist[]){
-	stringstream ss;
-	//ss<<this->getEventID()<<"\t"<<"Hando\t\t"<<time
-	//	<<"\t"<<baseID<<"\t"<<speed<<"\t"<<duration<<std::endl;
-
-	ss<<"h "<<this->prevCallReserved<<"\t"<<time
-		<<"\t"<<arrivalNo
-		<<" "<<blist[baseID].toString()<<endl;
-
-	//ss<<arrivalNo<<"\t"<<time<<endl;
-	return ss.str();
-}

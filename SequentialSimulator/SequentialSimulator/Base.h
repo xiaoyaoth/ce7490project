@@ -5,9 +5,6 @@
 #define BASENO 20
 #endif
 
-#include <string>
-#include <sstream>
-
 using namespace std;//omit this may cause TOSTRING function erronous
 
 class Base{
@@ -27,7 +24,7 @@ public:
 	void initializeReservation();
 	void toggleReservation();
 	bool isReservedChannelOccupied();
-	string toString();
+	//string toString();
 
 	static Base* getBlist();
 };
