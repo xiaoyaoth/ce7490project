@@ -51,7 +51,8 @@ void CallInitiationEvent::scheme1(Base blist[]){
 		if(handoverTS<terminationTS){
 			if(baseID+1<20)
 				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS, arrivalNo, false);
-		new CallTerminationEvent(handoverTS+0.01, baseID, arrivalNo, false);
+		CallTerminationEvent *cte = new CallTerminationEvent(handoverTS, baseID, arrivalNo, false);
+		cte->print = false;
 		} else
 			new CallTerminationEvent(terminationTS, baseID, arrivalNo, false);
 	}else
@@ -66,8 +67,7 @@ string CallInitiationEvent::getOutput(Base blist[]){
 
 	ss<<"i"<<"\t"<<time
 		<<"\t"<<arrivalNo
-		//<<"\t"<<blist[baseID].toString()
-		<<endl;
+		<<" "<<blist[baseID].toString()<<endl;
 
 	//ss<<arrivalNo<<"\t"<<time<<endl;
 	return ss.str();

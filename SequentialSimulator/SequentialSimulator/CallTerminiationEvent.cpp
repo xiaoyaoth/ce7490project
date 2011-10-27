@@ -45,8 +45,7 @@ string CallTerminationEvent::getOutput(Base blist[]){
 	if(print)
 	ss<<"t "<<prevCallReserved<<"\t"<<time
 		<<"\t"<<arrivalNo
-		//<<"\t"<<blist[baseID].toString()
-		<<endl;
+		<<" "<<blist[baseID].toString()<<endl;
 
 	//ss<<arrivalNo<<"\t"<<time<<endl;
 	return ss.str();
