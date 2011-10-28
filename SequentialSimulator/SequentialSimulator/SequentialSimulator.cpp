@@ -32,17 +32,12 @@ void generate01();
 void generateExponential();
 void generateTriangle();
 void generateNormal();
+ofstream fout("out.txt");
 
 int main(int argc, char* argv[])
 {
-	clock_t time;
-	time = clock();
-	//transferJiongData();
+	for(int i = 0; i<10; i++)
 	mainLogic();
-	cout<<clock()-time;
-	//generate01();
-	//generateExponential();
-	//generateTriangle();
 	return 0;
 }
 
@@ -53,11 +48,10 @@ void mainLogic(){
 	for(int i=0; i<BASENO; i++){
 		blist[i].setBaseID(i);
 		blist[i].initializeReservation();
-		//cout<<blist[i].toString();
 	}
 
 	ifstream fin;
-	fin.open("data.txt.100w");
+	fin.open("data.txt.1w");
 
 	if(!fin)
 		cout<<"file not exist"<<endl;
@@ -74,13 +68,14 @@ void mainLogic(){
 	Event * cur = EventList::getNextEvent();
 	while(cur!=NULL){
 		cur->handleEvent(blist);
+		
 		delete cur;
 		cur = EventList::getNextEvent();
 	}
-	clock_t t3 = clock();
-	cout<<"time with io:"<<t3-t1<<endl;
-	cout<<"time without io:"<<t3-t2<<endl;
 	Event::getResult();
+	clock_t t3 = clock();
+	fout<<"time with io:"<<t3-t1<<endl;
+	fout<<"time without io:"<<t3-t2<<endl;
 	fin.close();
 }
 
