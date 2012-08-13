@@ -14,7 +14,7 @@
 #endif
 
 #ifndef SCHEME
-#define SCHEME 1
+#define SCHEME 0
 #endif
 
 #include "Base.h"

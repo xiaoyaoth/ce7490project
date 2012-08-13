@@ -1,4 +1,5 @@
 #include "CallHandoverEvent.h"
+#include <fstream>
 
 CallHandoverEvent::CallHandoverEvent(float t, float s, int bid, float d, int ano)
 	:Event(t, bid, ano)
@@ -36,11 +37,15 @@ void CallHandoverEvent::scheme0(Base * blist){
 			if(baseID+1<20)
 				new CallHandoverEvent(handoverTS, speed, baseID+1, terminationTS-handoverTS, arrivalNo);
 			CallTerminationEvent *cte = new CallTerminationEvent(handoverTS+0.0001, baseID, arrivalNo);
-			cte->print = false;
+			///cte->print = false;
 		} else
 			new CallTerminationEvent(terminationTS, baseID, arrivalNo);
-	}else //all the channel occupied
+	}else{ //all the channel occupied
+		//std::fstream out1;
+		//out1.open("fini_seq.txt", std::ios::out | std::ios::app);
+		//out1<<"H baseId:"<<baseID<<" ano:"<<arrivalNo<<" time:"<<time<<endl;
 		Event::drop++;
+	}
 	return;
 }
 
@@ -74,3 +79,15 @@ void CallHandoverEvent::scheme1(Base * blist){
 	return;
 }
 
+string CallHandoverEvent::getOutput(Base blist[]){
+	stringstream ss;
+	//ss<<this->getEventID()<<"\t"<<"Hando\t\t"<<time
+	//	<<"\t"<<baseID<<"\t"<<speed<<"\t"<<duration<<std::endl;
+	//if(this->baseID == 13)
+	ss<<"h "<<this->prevCallReserved<<"\t"<<time
+		<<"\t"<<arrivalNo
+		<<"\t"<<blist[baseID].toString()<<endl;
+
+	//ss<<arrivalNo<<"\t"<<time<<endl;
+	return ss.str();
+}

@@ -4,6 +4,7 @@
 
 #define _USE_MATH_DEFINES /*the #define must come before the #include.*/
 #define SAMPLENO 3000
+#define MODE 1
 
 #include "Base.h"
 #include "Event.h"
@@ -11,6 +12,7 @@
 #include "CallHandoverEvent.h"
 #include "CallInitiationEvent.h"
 #include "CallTerminationEvent.h"
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -25,23 +27,22 @@ using namespace std;
 /*use ctrl+F5 to pause the execution at the end*/
 /*linker problem is solved. the problem is caused because I didn't implement the function*/
 void parseData(string rec);
-void testQueue();
-void transferJiongData();
-void mainLogic();
-void generate01();
-void generateExponential();
-void generateTriangle();
-void generateNormal();
+void mainLogic(char *filename);
 ofstream fout("out.txt");
 
 int main(int argc, char* argv[])
 {
-	for(int i = 0; i<10; i++)
-	mainLogic();
+	clock_t time;
+	time = clock();
+	mainLogic(argv[1]);
+	cout<<clock()-time<<endl;
+	cout<<argv[1]<<endl;
 	return 0;
 }
 
-void mainLogic(){
+void mainLogic(char *filename){
+	remove("fini_seq.txt");
+	remove("compres.txt");
 	clock_t t1 = clock();
 	bool debug = true;
 	Base * blist = Base::getBlist();
@@ -51,32 +52,25 @@ void mainLogic(){
 	}
 
 	ifstream fin;
-	fin.open("data.txt.1w");
-
+	fin.open(filename);
 	if(!fin)
 		cout<<"file not exist"<<endl;
 	string rec; //one record
-	int i = 0;
-	while(!fin.eof()){
-		getline(fin, rec);
-		parseData(rec);
-		if(++i%100000==0)
-			cout<<i<<endl;
-	}
-	clock_t t2 = clock();
+	getline(fin, rec);
+	parseData(rec);
+
 	int j = 0;
 	Event * cur = EventList::getNextEvent();
 	while(cur!=NULL){
 		cur->handleEvent(blist);
-		
+		if(!fin.eof()){
+			getline(fin, rec);
+			parseData(rec);
+		}
 		delete cur;
 		cur = EventList::getNextEvent();
 	}
-	Event::getResult();
-	clock_t t3 = clock();
-	fout<<"time with io:"<<t3-t1<<endl;
-	fout<<"time without io:"<<t3-t2<<endl;
-	fin.close();
+	cout<<Event::getResult();
 }
 
 void parseData(string rec){
@@ -88,6 +82,7 @@ void parseData(string rec){
 	cstr = new char[rec.size()+1];
 	strcpy(cstr, rec.c_str());
 
+#if MODE==1
 	p=strtok (cstr,"\t");
 	no = atoi(p);
 	if(no==1000000)
@@ -99,9 +94,22 @@ void parseData(string rec){
 	p=strtok(NULL,"\t");
 	position = (float)atof(p);
 	baseID = position/DIAMETER;
+	position = position - DIAMETER*baseID;
 	p=strtok(NULL,"\t");
 	speed = (float)atof(p);
-
-	new CallInitiationEvent(time, speed, baseID, position-baseID*DIAMETER, duration, no);
+	new CallInitiationEvent(time, speed, baseID, position, duration, no);
+#else
+	p=strtok (cstr,"\t");
+	no = atoi(p);
+	p=strtok(NULL,"\t");
+	time = (float)atof(p);
+	p=strtok(NULL,"\t");
+	baseID = atoi(p) - 1;
+	p=strtok(NULL,"\t");
+	duration = (float)atof(p);
+	p=strtok(NULL,"\t");
+	speed = (float)atof(p);
+	new CallInitiationEvent(time, speed, baseID, 1, duration, no);
+#endif	
 	return;
 }
