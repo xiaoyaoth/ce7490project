@@ -1,4 +1,5 @@
 #include "CallInitiationEvent.h"
+#include <fstream>
 
 CallInitiationEvent::CallInitiationEvent(float t, float s, int bid, float p, float d, int no)
 	:Event(t, bid, no)
@@ -30,8 +31,12 @@ void CallInitiationEvent::scheme0(Base blist[]){
 			cte->print = false;
 		} else
 			new CallTerminationEvent(terminationTS, baseID, arrivalNo);
-	}else
+	}else{
+		//std::fstream out1;
+		//out1.open("fini_seq.txt", std::ios::out | std::ios::app);
+		//out1<<"I baseId:"<<baseID<<" ano:"<<arrivalNo<<" time:"<<time<<endl;
 		Event::block++;
+	}
 	return;
 }
 
@@ -58,4 +63,17 @@ void CallInitiationEvent::scheme1(Base blist[]){
 	}else
 		Event::block++;
 	return;
+}
+
+string CallInitiationEvent::getOutput(Base blist[]){
+	stringstream ss;
+	//ss<<this->getEventID()<<"\t"<<"Init\t"<<arrivalNo<<"\t"<<time<<"\t"
+	//	<<baseID<<"\t"<<speed<<"\t"<<duration<<"\t"<<position<<std::endl;
+	//if(this->baseID == 13)
+	ss<<"i"<<"\t"<<time
+		<<"\t"<<arrivalNo
+		<<"\t"<<blist[baseID].toString()<<endl;
+
+	//ss<<arrivalNo<<"\t"<<time<<endl;
+	return ss.str();
 }
